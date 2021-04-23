@@ -50,7 +50,7 @@ func GetLoan(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Loan Request": loan})
 }
 
-//gets loan with query parameter
+//gets loan with query parameter and it gets record by query?status=New&loanamount_gtr=50000
 func GetLoanparams(c *gin.Context) {
 	var loan []models.Loan
 
@@ -97,4 +97,15 @@ func ApproveLoan(c *gin.Context) {
 		models.DB.Model(&loan).Updates(del)
 		c.JSON(http.StatusOK, gin.H{"Loan Request": "loan is rejected"})
 	}
+}
+
+//it gets record by query?status=New,Approved
+func GetLoanparams2(c *gin.Context) {
+	var loan []models.Loan
+
+	if err := models.DB.Where("status=?", c.Query("status")).Find(&loan).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+	c.JSON(200, gin.H{"results": loan})
 }

@@ -5,8 +5,8 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-var DB *gorm.DB
-var err error
+var DB *gorm.DB //db declared global
+var err error   //err
 
 func ConnectDataBase() {
 	DB, err = gorm.Open("sqlite3", "test.db")
@@ -15,5 +15,5 @@ func ConnectDataBase() {
 		panic("Failed to connect to database!")
 	}
 
-	DB.AutoMigrate(&Loan{})
+	DB.AutoMigrate(&Loan{}) //creates table from struct
 }
