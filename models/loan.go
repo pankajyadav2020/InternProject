@@ -1,5 +1,6 @@
 package models
 
+//Loan model struct
 type Loan struct {
 	ID           int    `json:"id" gorm:"primary_key"`
 	CustomerName string `json:"customername"`
